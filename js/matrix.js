@@ -5,7 +5,6 @@
 // #	Mirko Bay, 2017-04-26
 // #
 // #	TODO
-// #	> zielfunktionszeile nach unten
 // #	> number input ändern zu text mit pattern : 
 // #	> Verhalten wie Spinner vom Number Input für die Buttons
 // #	> navigation mit tastatur in tableau
@@ -47,14 +46,16 @@ function init() {
 
 	// create the header element, depending on the amount of variables
 	createMatrixHeader();
-
+	
+	// same for the objective function
+	createTargetFunction();
+	
 	// create rows for the constraints
 	for (var i = 0; i < numbOfConstraints; i++) {
 		addConstraint(i + 1);
 	}
 
-	// same for the objective function
-	createTargetFunction();
+
 
 }
 
@@ -102,7 +103,6 @@ function defineAndHighlightPivotElement() {
 	}
 	
 	var optPivotColumn = getOptimalPivotColumn();
-	console.log("optPivotColumn = " + optPivotColumn);
 	// we must check if not false, because a value of 0 is interpreted as false
 	if (optPivotColumn !== false) {
 		pivotColumnIndex = optPivotColumn;

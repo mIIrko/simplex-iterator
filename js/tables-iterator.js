@@ -39,6 +39,7 @@ function createTargetFunction() {
 
 	var rightHand = objectiveFunction.insertCell();
 	rightHand.appendChild(createInputElement());
+	
 }
 
 /**
@@ -64,7 +65,7 @@ function reset() {
 		matrixTable.lastElementChild
 				.removeChild(matrixTable.lastElementChild.lastChild);
 	}
-	
+
 	// repeat the steps which are used in the init function
 	// (except of adding the event handlers)
 
@@ -89,24 +90,37 @@ function reset() {
 function addConstraint(numb) {
 
 	// createTBody() returns the existing <tbody> element
-	var body = matrixTable.tBodies[0];
+	var tBody = matrixTable.tBodies[0];
+	var objectiveFunction = document.getElementById("objectiveFunction");
+	
+	// remove the last row (= the objective function)
+	tBody.removeChild(objectiveFunction);
 
-	var matrixRow = body.insertRow();
+	// insert a new row to the table body
+	var matrixRow = matrixTable.tBodies[0].insertRow();
+	// set the id
 	matrixRow.id = "constraint_" + numb;
+	// create and set the class
 	var att = document.createAttribute("class");
 	att.value = "constraint";
 	matrixRow.setAttributeNode(att);
 
+	// create the line heading
 	var lineHeading = matrixRow.insertCell();
 	lineHeading.innerHTML = headerMatrixConstraintRow + " " + numb;
 
+	// create and insert the new input elements
 	for (var i = 0; i < numbOfVariables; i++) {
 		var tempCell = matrixRow.insertCell();
 		tempCell.appendChild(createInputElement());
 	}
-
+	// create and insert the rhs
 	var rightHand = matrixRow.insertCell();
 	rightHand.appendChild(createInputElement());
+
+	// insert the objective function again
+	var newObjFunc = matrixTable.tBodies[0].insertRow();
+	tBody.replaceChild(objectiveFunction, newObjFunc);
 }
 
 /**
@@ -114,9 +128,11 @@ function addConstraint(numb) {
  * @returns
  */
 function removeConstraint() {
-	// matrix
-	var matrixBody = document.getElementById("matrixBody");
+
+	// get the row collection of all constraints
 	var constraintRows = document.getElementsByClassName("constraint");
+	// get the parent of the constraintRows (the tbody element)
+	// and remove the last element
 	constraintRows[0].parentNode.removeChild(constraintRows
 			.item(constraintRows.length - 1));
 }

@@ -100,6 +100,7 @@ function getOptimalPivotRow() {
 function iterate() {
 	
 	getValuesFromTableToMatrix();
+	console.log(matrix);
 
 	if (checkOptimum()) {
 		alert("Ist bereits Optimum!");
