@@ -68,7 +68,7 @@ function processUserInputConstraints(event) {
 				if (newValue < 2) {
 					document.getElementById("numbOfConstraints").value = numbOfConstraints;
 					return;
-				} 
+				}
 
 				var diffVariables = newValue - numbOfConstraints;
 				if (diffVariables > 0) {
@@ -89,7 +89,36 @@ function processUserInputConstraints(event) {
 			}, 500);
 }
 
+/**
+ * checks the user input live against the pattern for a rational number so the
+ * user can just type following number types:
+ *  > integer, e.g. "1" > float, e.g. "3/4" > mixed float, e.g. "3,2/4" or
+ * "3/4,2" > input with both comma and dot
+ * 
+ * @returns
+ */
+function checkUserNumberInput(event) {
+	
+	console.log("handler called");
+	
+//	var pattern = new RegExp ("((-)?[0-9]?[(,|\.)[0-9]+]?/)?(-)?[0-9]*[(,|\.)[0-9]+]?");
+	var pattern = new RegExp("^((-)?[0-9]?[(,|\.)[0-9]+]?/)?(-)?[0-9]*[(,|\.)[0-9]+]?$");
 
+	// if invalid input
+	
+	var input = event.target.value;
+	
+	console.log(input);
+	console.log(pattern.test(input));
+	
+	if (!pattern.test(input)) {
+		console.log("false");
+	} 
+	
+	// remove the last sign
+	
+	
+}
 
 /**
  * 
@@ -158,17 +187,20 @@ function addEventHandler() {
 
 	// add the event listener for the reset button
 	document.getElementById("reset").addEventListener("click", reset);
-	
+
 	// add the event listener for the pivotize button
-	document.getElementById("pivotize").addEventListener("click", defineAndHighlightPivotElement);
-	
+	document.getElementById("pivotize").addEventListener("click",
+			defineAndHighlightPivotElement);
+
 	// add the event listener for the loadDefaultExample button
-	document.getElementById("loadExample").addEventListener("click", setDefaultExampleToTable);
-	
+	document.getElementById("loadExample").addEventListener("click",
+			setDefaultExampleToTable);
+
 	// add the event listener for the iterate button
 	document.getElementById("iterate").addEventListener("click", iterate);
-	
+
 	// add the event listener for the solve button
-	//document.getElementById("solve").addEventListener("click", collectTaskData);
+	// document.getElementById("solve").addEventListener("click",
+	// collectTaskData);
 
 }

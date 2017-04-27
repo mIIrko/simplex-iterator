@@ -46,16 +46,14 @@ function init() {
 
 	// create the header element, depending on the amount of variables
 	createMatrixHeader();
-	
+
 	// same for the objective function
 	createTargetFunction();
-	
+
 	// create rows for the constraints
 	for (var i = 0; i < numbOfConstraints; i++) {
 		addConstraint(i + 1);
 	}
-
-
 
 }
 
@@ -96,12 +94,12 @@ function getValuesFromTableToMatrix() {
 function defineAndHighlightPivotElement() {
 
 	pivotElementIsSet = false;
-	
+
 	if (checkOptimum()) {
 		alert("Ist bereits Optimum!");
 		return;
 	}
-	
+
 	var optPivotColumn = getOptimalPivotColumn();
 	// we must check if not false, because a value of 0 is interpreted as false
 	if (optPivotColumn !== false) {
@@ -118,7 +116,7 @@ function defineAndHighlightPivotElement() {
 		alert("Pivot Spalte kann nicht bestimmt werden!");
 		return;
 	}
-	
+
 	pivotElementIsSet = true;
 	var rows = matrixTable.rows;
 	// we must make plus 1 because of the row and column headers
@@ -206,13 +204,7 @@ function createInputElement(value) {
 	}
 
 	var element = document.createElement("input");
-	element.type = "text";
-	// element.pattern = "[0-9]+";
-
-	var pattern = "(" + "(-)?" + // the value can be negative
-	"[0-9]?" + // 
-	"[" + "(,|\.)" + "[0-9]+" + "]?" + "/" + ")?" + "(-)?" + "[0-9]*" + "["
-			+ "(,|\.)" + "[0-9]+" + "]?";
+	element.addEventListener("keyup", checkUserNumberInput);
 
 	element.value = value;
 
