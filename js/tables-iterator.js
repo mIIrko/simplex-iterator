@@ -71,14 +71,15 @@ function reset() {
 
 	// create the header element, depending on the amount of variables
 	createMatrixHeader();
+	
+	// same for the objective function
+	createTargetFunction();
 
 	// create rows for the constraints
 	for (var i = 0; i < numbOfConstraints; i++) {
 		addConstraint(i + 1);
 	}
 
-	// same for the objective function
-	createTargetFunction();
 }
 
 /**
@@ -95,7 +96,7 @@ function addConstraint(numb) {
 	
 	// remove the last row (= the objective function)
 	tBody.removeChild(objectiveFunction);
-
+	
 	// insert a new row to the table body
 	var matrixRow = matrixTable.tBodies[0].insertRow();
 	// set the id

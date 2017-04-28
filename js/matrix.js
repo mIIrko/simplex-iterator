@@ -12,10 +12,6 @@
 // ###############################################################
 
 // ROADMAP v1.0
-
-// Eingabe von rationalen Zahlen
-// auf buttonklick pivot anzeigen
-// auf buttonklick iterieren
 // auf buttonklick komplett optimieren
 // import / export
 
@@ -93,7 +89,13 @@ function getValuesFromTableToMatrix() {
  */
 function defineAndHighlightPivotElement() {
 
-	pivotElementIsSet = false;
+	if (pivotElementIsSet) {
+		// we must reset the highligting of the old pivot element
+		matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].style.backgroundColor = "white";
+		pivotElementIsSet = false;
+	}
+	
+	getValuesFromTableToMatrix();
 
 	if (checkOptimum()) {
 		alert("Ist bereits Optimum!");
@@ -118,9 +120,9 @@ function defineAndHighlightPivotElement() {
 	}
 
 	pivotElementIsSet = true;
-	var rows = matrixTable.rows;
+//	var rows = .rows;
 	// we must make plus 1 because of the row and column headers
-	rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].style.backgroundColor = "red";
+	matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].style.backgroundColor = "red";
 }
 
 /**
@@ -205,7 +207,13 @@ function createInputElement(value) {
 
 	var element = document.createElement("input");
 	element.addEventListener("keyup", checkUserNumberInput);
+	element.addEventListener("keypress", printPressedKey);
 
+	// link to visualize the pattern
+	// https://www.debuggex.com/r/d5NHthVr7PA3mEhE
+
+	element.pattern = "^[-]?[0-9]+((\.|,)[0-9]+)?((\/-?0(\.|,)([1-9]+[0-9]*|[0-9]+[1-9]))|(\/-?[1-9]+((\.|,)[0-9]+)?))?$";
+	element.title = "Geben Sie eine Ganzzahl oder eine gültige rationale Zahl ein."
 	element.value = value;
 
 	return element;

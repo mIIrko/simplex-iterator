@@ -90,34 +90,78 @@ function processUserInputConstraints(event) {
 }
 
 /**
+ * 
+ * proofs which character the user typed in
+ * 
+ * @param e
+ * @returns
+ */
+function printPressedKey(e) {
+	
+	var keynum;
+    if(window.event) { // IE
+      keynum = e.keyCode;
+    } else if(e.which){ // Netscape/Firefox/Opera
+      keynum = e.which;
+    }
+
+    var char = String.fromCharCode(keynum);
+    var regex = new RegExp("[0-9\.,\/\-]");
+    if (regex.test(char)) {
+    	// the character is allowed
+
+    } else {
+    	// the character is not allowed, delete it
+    	console.log(char);
+    	var newString = e.target.value.split(char).join('');
+    	e.target.value = newString;
+    }
+ 
+    // triggers the native html5 form validation
+    var submitButton = document.getElementById("submitButton");
+    submitButton.click();
+}
+
+
+/**
  * checks the user input live against the pattern for a rational number so the
- * user can just type following number types:
- *  > integer, e.g. "1" > float, e.g. "3/4" > mixed float, e.g. "3,2/4" or
- * "3/4,2" > input with both comma and dot
+ * user can just type following number types: > integer, e.g. "1" > float, e.g.
+ * "3/4" > mixed float, e.g. "3,2/4" or "3/4,2" > input with both comma and dot
  * 
  * @returns
  */
 function checkUserNumberInput(event) {
-	
-	console.log("handler called");
-	
-//	var pattern = new RegExp ("((-)?[0-9]?[(,|\.)[0-9]+]?/)?(-)?[0-9]*[(,|\.)[0-9]+]?");
-	var pattern = new RegExp("^((-)?[0-9]?[(,|\.)[0-9]+]?/)?(-)?[0-9]*[(,|\.)[0-9]+]?$");
 
-	// if invalid input
+
+
 	
 	var input = event.target.value;
+
+	// while typing, delete all letters
+
+	// and all symbols except the slash, dot, comma and the minus
+		
+	var regex = new RegExp(
+			"^([0-9]{1,}((\\.|,)[0-9]{1,}){0,1})(/[0-9]{1,}((\\.|,)[0-9]{1,}){0,1}){0,1}$",
+			"g");
+
+	// var pattern = new
+	// RegExp("^[0-9]+[(\.|,)[0-9]+]?\/[0-9]+[(\.|,)[0-9]+]?$");
+
+	// if invalid input
+	if (input.length == 0) {
+		return;
+	}
 	
-	console.log(input);
-	console.log(pattern.test(input));
+//	if (regex.test(input)) {
+//		console.log("passed");
+//	} else {
+//		// remove the last sign
+//		var correctedValue = input.slice(0, input.length - 1);
+//		event.target.value = correctedValue;
+//	}
 	
-	if (!pattern.test(input)) {
-		console.log("false");
-	} 
-	
-	// remove the last sign
-	
-	
+	var form = document.getElementById("matriForm");
 }
 
 /**

@@ -8,6 +8,7 @@
 <script src="js/eventhandler.js"></script>
 <script src="js/iterator.js"></script>
 <script src="js/matrix.js"></script>
+
 <style>
 table {
 	border-collapse: collapse;
@@ -32,8 +33,7 @@ td {
 </head>
 <body>
 
-<h2>Simplex Iterator</h2>
-
+	<h2>Simplex Iterator</h2>
 
 	<div id="controls" class="col-md-10 main-content">
 
@@ -54,10 +54,11 @@ td {
 		<button id="optimize" th:text="#{iterator.optimizeButton}">optimieren</button>
 		<button id="reset" th:text="#{powerlp.resetButton}">reset</button>
 		<button id="iterate" th:text="#{iterator.iterateButton}">Iterieren</button>
-		<button id="loadExample" th:text="#{iterator.loadExampleButton}">Standard Beispiel laden</button>
+		<button id="loadExample" th:text="#{iterator.loadExampleButton}">Standard
+			Beispiel laden</button>
 
 	</div>
-
+<form id="matrixForm" onsubmit="return false">
 	<table id="matrix">
 		<thead>
 		</thead>
@@ -65,7 +66,9 @@ td {
 		</tbody>
 	</table>
 	
-		<script th:inline="javascript">
+	<input type="submit" id="submitButton" style="display: none"/>
+</form>
+	<script th:inline="javascript">
 		/*<![CDATA[*/
 
 		// the strings to translate
@@ -73,9 +76,8 @@ td {
 		var headerMatrixConstraintRow = "Restriktion";
 		//var headerMatrixTargetFunction = [[#{powerlp.headerTableauTargetFunction}]] || "Zielfunktion";
 		//var headerMatrixConstraintRow = [[#{powerlp.headerTableauConstraintRow}]] || "Restriktion";
-		
+
 		init();
-		
 
 		/*]]>*/
 	</script>
