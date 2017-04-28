@@ -4,18 +4,16 @@
 // #
 // #	Mirko Bay, 2017-04-26
 // #
-// #	TODO
-// #	> number input ändern zu text mit pattern : 
-// #	> Verhalten wie Spinner vom Number Input für die Buttons
-// #	> navigation mit tastatur in tableau
-// #
 // ###############################################################
 
 // ROADMAP v1.0
+// navigation mit tastatur in tableau https://jsfiddle.net/cnkr7wqa/5/
+// auf doppelklick element in basis bringen
 // auf buttonklick komplett optimieren
 // import / export
 
 // FEATURES
+// Verhalten wie Spinner vom Number Input für die Buttons
 // schöne Darstellung von rationalen Zahlen  : ohne library, da völliger overload
 // Ausgangs-Matrix speichern
 // alle Basislösungen anzeigen (zulässig + unzulässige)
@@ -94,7 +92,7 @@ function defineAndHighlightPivotElement() {
 		matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].style.backgroundColor = "white";
 		pivotElementIsSet = false;
 	}
-	
+
 	getValuesFromTableToMatrix();
 
 	if (checkOptimum()) {
@@ -120,7 +118,7 @@ function defineAndHighlightPivotElement() {
 	}
 
 	pivotElementIsSet = true;
-//	var rows = .rows;
+	// var rows = .rows;
 	// we must make plus 1 because of the row and column headers
 	matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].style.backgroundColor = "red";
 }
@@ -208,6 +206,40 @@ function createInputElement(value) {
 	var element = document.createElement("input");
 	element.addEventListener("keyup", checkUserNumberInput);
 	element.addEventListener("keypress", printPressedKey);
+	element.addEventListener("dblclick", function(e) {
+				
+		var row = e.target.parentNode.parentNode;
+		// id = constraint_2 means row 1 in matrix
+		var rowIndex = row.id.replace(/constraint_/, "") - 1;
+
+		// so the casting does not work, the row must be the objective function
+		if (isNaN(rowIndex)) {
+			return;
+		}
+
+		// the targetParent is the <td> element
+		var targetParent = event.target.parentNode;
+		var parent = targetParent.parentNode;
+
+		// http://stackoverflow.com/a/23528539
+		// The equivalent of parent.children.indexOf(child)
+		var columnIndex = Array.prototype.indexOf.call(parent.children,
+				targetParent) - 1;
+
+		if (rowIndex == numbOfConstraints || columnIndex == numbOfVariables) {
+			return;
+		}
+
+		var valueOfTarget = e.target.value;
+		if (valueOfTarget == 0) {
+			alert("0 kann nicht in die Basis gelangen!");
+			return;
+		}
+		
+		console.log(rowIndex + " | " + columnIndex);
+		iterate(rowIndex, columnIndex);
+
+	});
 
 	// link to visualize the pattern
 	// https://www.debuggex.com/r/d5NHthVr7PA3mEhE

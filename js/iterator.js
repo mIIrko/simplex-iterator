@@ -97,24 +97,30 @@ function getOptimalPivotRow() {
  * 
  * @returns
  */
-function iterate() {
-	
+function iterate(customPivotRowIndex, customPivotColumnIndex) {
+
 	getValuesFromTableToMatrix();
-	console.log(matrix);
 
-	if (checkOptimum()) {
-		alert("Ist bereits Optimum!");
-		return;
+	if (customPivotRowIndex !== undefined
+			&& customPivotColumnIndex !== undefined) {
+		var pivotElement = matrix[customPivotRowIndex][customPivotColumnIndex];
+		pivotRowIndex = customPivotRowIndex;
+		pivotColumnIndex = customPivotColumnIndex;
+	} else {
+		
+		if (checkOptimum()) {
+			alert("Ist bereits Optimum!");
+			return;
+		}
+		
+		if (!pivotElementIsSet) {
+			alert("Erst Pivot Element bestimmen!");
+			return;
+		}
+		var pivotElement = matrix[pivotRowIndex][pivotColumnIndex];
 	}
-	if (!pivotElementIsSet) {
-		alert("Erst Pivot Element bestimmen!");
-		return;
-	}
 
-	// get the pivot element
-	var pivotElement = matrix[pivotRowIndex][pivotColumnIndex];
-
-	// we can be safe that the pivotElement can't be zero!
+	// we can be safe that the value of the pivotElement can't be zero!
 	// TODO: is that true?
 	for (var i = 0; i < matrix[pivotRowIndex].length; i++) {
 		matrix[pivotRowIndex][i] = (matrix[pivotRowIndex][i].div(pivotElement));
