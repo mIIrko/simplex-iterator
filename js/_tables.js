@@ -149,6 +149,11 @@ var TableManipulator = (function () {
     // matrix header
     var headerRow = document.getElementById("matrixHeader");
 
+    var rhsColumn = [];
+    for (var i = 1; i < matrixTable.rows.length; i++) {
+      rhsColumn.push(matrixTable.rows[i].lastElementChild);
+    }
+
     // delete the rhs label cell in the header row
     headerRow.deleteCell(-1);
 
@@ -171,18 +176,22 @@ var TableManipulator = (function () {
 
     // extend constraints row
     var constraintRows = document.getElementsByClassName("constraint");
-    for (var i = 0; i < constraintRows.length; i++) {
+    for (var j = 0; j < constraintRows.length; j++) {
 
       // remove the right hand side
-      constraintRows[i].deleteCell(-1);
+      constraintRows[j].deleteCell(-1);
 
       // add the cell for the new variable
-      var newCell = constraintRows[i].insertCell();
+      var newCell = constraintRows[j].insertCell();
       newCell.appendChild(createInputElement());
 
       // add the right hand side
-      var rhs = constraintRows[i].insertCell();
+      var rhs = constraintRows[j].insertCell();
       rhs.appendChild(createInputElement());
+    }
+
+    for (var k = 1; k < matrixTable.rows.length; k++) {
+      matrixTable.rows[k].replaceChild(rhsColumn[k-1], matrixTable.rows[k].lastElementChild);
     }
 
   }

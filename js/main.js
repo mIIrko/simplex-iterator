@@ -7,7 +7,6 @@
 // ###############################################################
 
 // ROADMAP v1.0
-// b-vektor speichern
 // navigation mit tastatur in tableau https://jsfiddle.net/cnkr7wqa/5/
 // auf buttonklick komplett optimieren
 // alle Basislösungen anzeigen (zulässig + unzulässige)
