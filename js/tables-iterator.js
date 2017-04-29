@@ -101,10 +101,8 @@ function addConstraint(numb) {
 	var matrixRow = matrixTable.tBodies[0].insertRow();
 	// set the id
 	matrixRow.id = "constraint_" + numb;
-	// create and set the class
-	var att = document.createAttribute("class");
-	att.value = "constraint";
-	matrixRow.setAttributeNode(att);
+	// set the class
+	matrixRow.setAttribute("class", "constraint");
 
 	// create the line heading
 	var lineHeading = matrixRow.insertCell();

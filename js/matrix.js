@@ -7,16 +7,16 @@
 // ###############################################################
 
 // ROADMAP v1.0
+// b-vektor speichern
 // navigation mit tastatur in tableau https://jsfiddle.net/cnkr7wqa/5/
-// auf doppelklick element in basis bringen
 // auf buttonklick komplett optimieren
+// alle Basislösungen anzeigen (zulässig + unzulässige)
 // import / export
 
 // FEATURES
 // Verhalten wie Spinner vom Number Input für die Buttons
 // schöne Darstellung von rationalen Zahlen  : ohne library, da völliger overload
 // Ausgangs-Matrix speichern
-// alle Basislösungen anzeigen (zulässig + unzulässige)
 // automatisches Hinzufügen schlupfvar / goalvar
 // zeichnen aller Lösungen / darstellen des Lösungsraum
 // https://github.com/maurizzzio/function-plot
@@ -218,7 +218,7 @@ function createInputElement(value) {
 		}
 
 		// the targetParent is the <td> element
-		var targetParent = event.target.parentNode;
+		var targetParent = e.target.parentNode;
 		var parent = targetParent.parentNode;
 
 		// http://stackoverflow.com/a/23528539
