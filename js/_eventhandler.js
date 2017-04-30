@@ -236,7 +236,7 @@ var EventHandler = (function () {
     document.getElementById("pivotize").addEventListener("click", defineAndHighlightPivotElement);
 
     // add the event listener for the loadDefaultExample button
-    document.getElementById("loadExample").addEventListener("click",setDefaultExampleToTable);
+    document.getElementById("loadExample").addEventListener("click", setDefaultExampleToTable);
 
     // add the event listener for the iterate button
     document.getElementById("iterate").addEventListener("click", Iterator.iterate);

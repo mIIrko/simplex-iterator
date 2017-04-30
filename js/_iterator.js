@@ -13,11 +13,6 @@
 // ###############################################################
 
 
-/**
- * needs access to the
- *
- *
- */
 var Iterator = (function () {
 
   /*
@@ -161,6 +156,9 @@ var Iterator = (function () {
     copyMatrixToTable();
     // reset the pivot element
     pivotElementIsSet = false;
+    // reset the highligthing
+    matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].firstElementChild.style.backgroundColor = "#ffffff";
+    matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].firstElementChild.style.color = "#000000";
 
   }
 

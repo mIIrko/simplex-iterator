@@ -6,6 +6,10 @@
 // #
 // ###############################################################
 
+// TODO: pivot element farbe resetten
+// TODO: button "optimieren"
+
+
 // ROADMAP v1.0
 // navigation mit tastatur in tableau https://jsfiddle.net/cnkr7wqa/5/
 // auf buttonklick komplett optimieren
@@ -108,7 +112,8 @@ function defineAndHighlightPivotElement() {
 
   if (pivotElementIsSet) {
     // we must reset the highligting of the old pivot element
-    matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].style.backgroundColor = "white";
+    matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].firstElementChild.style.backgroundColor = "#ffffff";
+    matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].firstElementChild.style.color = "#000000";
     pivotElementIsSet = false;
   }
 
@@ -139,7 +144,8 @@ function defineAndHighlightPivotElement() {
 
   pivotElementIsSet = true;
   // we must make plus 1 because of the row and column headers
-  matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].style.backgroundColor = "red";
+  matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].firstElementChild.style.backgroundColor = "#334152";
+  matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].firstElementChild.style.color = "#ffffff";
 }
 
 /**
