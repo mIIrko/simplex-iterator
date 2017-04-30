@@ -1,115 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A step by step solver with the simplex algorithm">
-    <title>Web Iterator &ndash; Simplex</title>
-    
-    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-        <link rel="stylesheet" href="iterator.css">
-    <script src="js/fraction.min.js"></script>
-    <script src="js/_tables.js"></script>
-    <script src="js/_eventhandler.js"></script>
-    <script src="js/_iterator.js"></script>
-    <script src="js/main.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A step by step solver with the simplex algorithm">
+  <title>Web Iterator &ndash; Simplex</title>
 
-    <style>
-        table {
-            border-collapse: collapse;
-        }
+  <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+  <link rel="stylesheet" href="iterator.css">
+  <script src="js/fraction.min.js"></script>
+  <script src="js/_tables.js"></script>
+  <script src="js/_eventhandler.js"></script>
+  <script src="js/_iterator.js"></script>
+  <script src="js/main.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300" rel="stylesheet">
 
-        table, th, td {
-            border: 1px solid black;
-        }
-
-        td {
-            width: 2em;
-            height: 2em;
-        }
-
-        /* disable the spinner of the number inputs*/
-        #controls input[type=number]::-webkit-inner-spin-button, #controls input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-    </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href="">Your Site</a>
+<header>
 
-        <ul class="pure-menu-list">
-            <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tour</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Up</a></li>
-        </ul>
+  <h1>Simplex Iterator</h1>
 
+</header>
+
+<div id="content">
+
+  <section id="controls">
+
+    <div id="inputelements">
+      <label for="numbOfVariables" th:text="#{powerlp.numberOfVariables}">
+        Anzahl der Variablen
+      </label>
+      <input id="numbOfVariables" name="numbOfVariables" type="number" min="4" placeholder="Number of variables"
+             value="4"/>
+      <button id="incrementNumberOfVariables">↑</button>
+      <button id="decrementNumberOfVariables">↓</button>
+
+      <label for="numbOfConstraints"
+             th:text="#{powerlp.numberOfConstraints}">Anzahl der Restriktionen</label>
+      <input id="numbOfConstraints" name="numbOfConstraints" type="number" min="1" placeholder="Number of constrains"
+             value="2"/>
+      <button id="incrementNumberOfConstraints">↑</button>
+      <button id="decrementNumberOfConstraints">↓</button>
     </div>
-</div>
-
-<div class="splash-container">
-    <div class="splash">
-        <h1 class="splash-head">Big Bold Text</h1>
-        <p class="splash-subhead">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        </p>
-        <p>
-            <a href="http://purecss.io" class="pure-button pure-button-primary">Get Started</a>
-        </p>
+    <div id="buttons">
+      <button id="pivotize" th:text="#{iterator.pivotizeButton}">Pivot</button>
+      <button id="optimize" th:text="#{iterator.optimizeButton}">optimieren</button>
+      <button id="reset" th:text="#{powerlp.resetButton}">reset</button>
+      <button id="iterate" th:text="#{iterator.iterateButton}">Iterieren</button>
+      <button id="loadExample" th:text="#{iterator.loadExampleButton}">Standard Beispiel laden</button>
     </div>
+  </section>
+
+  <section id="tableWrapper">
+    <div id="table">
+      <form id="matrixForm" onsubmit="return false">
+        <table id="matrix">
+          <thead>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+
+        <input type="submit" id="submitButton" style="display: none"/>
+
+      </form>
+    </div>
+  </section>
 </div>
 
-<div id="controls" class="col-md-10 main-content">
-
-    <label for="numbOfVariables" th:text="#{powerlp.numberOfVariables}">Anzahl
-        der Variablen</label> <input id="numbOfVariables" name="numbOfVariables"
-                                     type="number" min="4" placeholder="Number of variables" value="4"/>
-    <button id="incrementNumberOfVariables">↑</button>
-    <button id="decrementNumberOfVariables">↓</button>
-
-    <label for="numbOfConstraints"
-           th:text="#{powerlp.numberOfConstraints}">Anzahl der
-        Restriktionen</label> <input id="numbOfConstraints" name="numbOfConstraints"
-                                     type="number" min="1" placeholder="Number of constrains" value="2"/>
-    <button id="incrementNumberOfConstraints">↑</button>
-    <button id="decrementNumberOfConstraints">↓</button>
-
-    <button id="pivotize" th:text="#{iterator.pivotizeButton}">Pivot</button>
-    <button id="optimize" th:text="#{iterator.optimizeButton}">optimieren</button>
-    <button id="reset" th:text="#{powerlp.resetButton}">reset</button>
-    <button id="iterate" th:text="#{iterator.iterateButton}">Iterieren</button>
-    <button id="loadExample" th:text="#{iterator.loadExampleButton}">Standard
-        Beispiel laden
-    </button>
-
+<div id="circle">
+  <svg height="300" width="300">
+    <circle cx="200" cy="200" r="200"/>
+  </svg>
 </div>
-<form id="matrixForm" onsubmit="return false">
-    <table id="matrix">
-        <thead>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
 
-    <input type="submit" id="submitButton" style="display: none"/>
-</form>
+
 <script th:inline="javascript">
-    /*<![CDATA[*/
+  /*<![CDATA[*/
 
-    // the strings to translate
+  // the strings to translate
   var headerMatrixObjectiveFunction = "Zielfunktion";
-    var headerMatrixConstraintRow = "Restriktion";
-    //var headerMatrixTargetFunction = [[#{powerlp.headerTableauTargetFunction}]] || "Zielfunktion";
-    //var headerMatrixConstraintRow = [[#{powerlp.headerTableauConstraintRow}]] || "Restriktion";
+  var headerMatrixConstraintRow = "Restriktion";
+  //var headerMatrixTargetFunction = [[#{powerlp.headerTableauTargetFunction}]] || "Zielfunktion";
+  //var headerMatrixConstraintRow = [[#{powerlp.headerTableauConstraintRow}]] || "Restriktion";
 
-    init();
+  init();
 
-    /*]]>*/
+  /*]]>*/
 </script>
 
 
