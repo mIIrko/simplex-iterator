@@ -1,6 +1,6 @@
 // ###############################################################
 // #
-// #	WEB ITERATOR (PURE JAVASCRIPT)
+// #	SIMPLEX ITERATOR
 // #
 // #	Mirko Bay, 2017-04-26
 // #
@@ -8,19 +8,19 @@
 
 // TODO: pivot element farbe resetten
 // TODO: button "optimieren"
+// TODO: alert überarbeiten (funktion machen)
 
 
 // ROADMAP v1.0
+// Tooltips einblenden https://github.com/kazzkiq/balloon.css
 // navigation mit tastatur in tableau https://jsfiddle.net/cnkr7wqa/5/
-// auf buttonklick komplett optimieren
 // alle Basislösungen anzeigen (zulässig + unzulässige)
-// import / export
+// import / export (wirklich nötig?)
 
 // FEATURES
 // Verhalten wie Spinner vom Number Input für die Buttons
-// schöne Darstellung von rationalen Zahlen  : ohne library, da völliger overload
+// schöne Darstellung von rationalen Zahlen
 // Ausgangs-Matrix speichern
-// automatisches Hinzufügen schlupfvar / goalvar
 // zeichnen aller Lösungen / darstellen des Lösungsraum
 // https://github.com/maurizzzio/function-plot
 
@@ -120,7 +120,7 @@ function defineAndHighlightPivotElement() {
   getValuesFromTableToMatrix();
 
   if (Iterator.checkOptimum()) {
-    alert("Ist bereits Optimum!");
+    showAlertMessage("Ist bereits Optimum!")
     return;
   }
 
@@ -134,11 +134,11 @@ function defineAndHighlightPivotElement() {
     if (!isNaN(optPivotRow)) {
       pivotRowIndex = optPivotRow;
     } else {
-      alert("Pivot Zeile kann nicht bestimmt werden!");
+      showAlertMessage("Pivot Zeile kann nicht bestimmt werden!");
       return;
     }
   } else {
-    alert("Pivot Spalte kann nicht bestimmt werden!");
+    showAlertMessage("Pivot Spalte kann nicht bestimmt werden!");
     return;
   }
 
@@ -168,6 +168,18 @@ function copyMatrixToTable() {
       rows[i].childNodes[j].firstElementChild.value = (matrix[i - 1][j - 1].toFraction(false));
     }
   }
+
+}
+
+function showAlertMessage(text) {
+  var alertanchor = document.getElementById("alertanchor");
+  var message = document.createElement("p");
+  message.innerHTML = text;
+  alertanchor.appendChild(message);
+  setTimeout(function () {
+    message.style.animationName = "fadeOut";
+    alertanchor.removeChild(message);
+  }, 3000)
 
 }
 
@@ -204,16 +216,3 @@ function setDefaultExampleToTable() {
 
   getValuesFromTableToMatrix();
 }
-
-/*
- * ###########################################################
- *
- * HELPER METHODS
- *
- * for creating input and select elements for additional table rows / cells
- *
- * ###########################################################
- */
-
-
-

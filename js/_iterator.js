@@ -115,12 +115,12 @@ var Iterator = (function () {
     } else {
 
       if (checkOptimum()) {
-        alert("Ist bereits Optimum!");
+        showAlertMessage("Ist bereits Optimum!");
         return;
       }
 
       if (!pivotElementIsSet) {
-        alert("Erst Pivot Element bestimmen!");
+        showAlertMessage("Erst Pivot Element bestimmen!");
         return;
       }
       pivotElement = matrix[pivotRowIndex][pivotColumnIndex];
@@ -191,8 +191,8 @@ var Iterator = (function () {
     }
 
     var valueOfTarget = e.target.value;
-    if (valueOfTarget === 0) {
-      alert("0 kann nicht in die Basis gelangen!");
+    if (valueOfTarget == 0) {
+      showAlertMessage("0 kann nicht in die Basis gelangen!");
       return;
     }
 

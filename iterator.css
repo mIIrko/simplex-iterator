@@ -14,6 +14,7 @@ header h1 {
   text-align: center;
   margin: 0;
   padding: 0.5em;
+  background-color: white;
 }
 
 /* disable the spinner of the number inputs*/
@@ -122,3 +123,45 @@ button {
 }
 
 
+/* ALERT POP UP */
+#alertanchor {
+  position: absolute;
+  bottom: 5em;
+  text-align: center;
+  width:100%;
+}
+
+#alertanchor p {
+  margin-left:auto;
+  margin-right:auto;
+  padding:2em;
+  width: 20em;
+  border-radius: 0.7em;
+  background-color: rgba(51, 65, 82, 0.8);
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: bold;
+  animation-duration: 700ms;
+  animation-name: fadeIn;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

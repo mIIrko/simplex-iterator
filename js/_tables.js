@@ -191,7 +191,7 @@ var TableManipulator = (function () {
     }
 
     for (var k = 1; k < matrixTable.rows.length; k++) {
-      matrixTable.rows[k].replaceChild(rhsColumn[k-1], matrixTable.rows[k].lastElementChild);
+      matrixTable.rows[k].replaceChild(rhsColumn[k - 1], matrixTable.rows[k].lastElementChild);
     }
 
   }
@@ -257,6 +257,9 @@ var TableManipulator = (function () {
 
     element.pattern = "^[-]?[0-9]+((\.|,)[0-9]+)?((\/-?0(\.|,)([1-9]+[0-9]*|[0-9]+[1-9]))|(\/-?[1-9]+((\.|,)[0-9]+)?))?$";
     element.title = "Geben Sie eine Ganzzahl oder eine gültige rationale Zahl ein.";
+    element.addEventListener("click", function () {
+      this.select();
+    });
     element.value = value;
 
     return element;

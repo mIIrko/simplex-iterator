@@ -36,14 +36,14 @@
         Anzahl der Variablen
       </label>
       <input id="numbOfVariables" name="numbOfVariables" type="number" min="4" placeholder="Number of variables"
-             value="4"/>
+             value="4" onclick="this.select()"/>
       <button id="incrementNumberOfVariables">↑</button>
       <button id="decrementNumberOfVariables">↓</button>
 
       <label for="numbOfConstraints"
              th:text="#{powerlp.numberOfConstraints}">Anzahl der Restriktionen</label>
       <input id="numbOfConstraints" name="numbOfConstraints" type="number" min="1" placeholder="Number of constrains"
-             value="2"/>
+             value="2" onclick="this.select()"/>
       <button id="incrementNumberOfConstraints">↑</button>
       <button id="decrementNumberOfConstraints">↓</button>
     </div>
@@ -73,9 +73,16 @@
   </section>
 </div>
 
+<div id="alertanchor">
+
+</div>
+
+
 <div id="circle">
   <svg height="300" width="300">
-    <circle cx="200" cy="200" r="200"/>
+    <circle cx="200" cy="200" r="200">
+    <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">mirko bay</text>
+    </circle>
   </svg>
 </div>
 
