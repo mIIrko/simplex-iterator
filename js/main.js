@@ -6,23 +6,6 @@
 // #
 // ###############################################################
 
-// TODO: pivot element farbe resetten
-// TODO: button "optimieren"
-// TODO: alert überarbeiten (funktion machen)
-
-
-// ROADMAP v1.0
-// Tooltips einblenden https://github.com/kazzkiq/balloon.css
-// navigation mit tastatur in tableau https://jsfiddle.net/cnkr7wqa/5/
-// alle Basislösungen anzeigen (zulässig + unzulässige)
-// import / export (wirklich nötig?)
-
-// FEATURES
-// Verhalten wie Spinner vom Number Input für die Buttons
-// schöne Darstellung von rationalen Zahlen
-// Ausgangs-Matrix speichern
-// zeichnen aller Lösungen / darstellen des Lösungsraum
-// https://github.com/maurizzzio/function-plot
 
 /*
  * ###############################################################
@@ -110,6 +93,10 @@ function getValuesFromTableToMatrix() {
  */
 function defineAndHighlightPivotElement() {
 
+  if (!checkIfMatrixIsValid()) {
+    return;
+  }
+
   if (pivotElementIsSet) {
     // we must reset the highligting of the old pivot element
     matrixTable.rows[pivotRowIndex + 1].childNodes[pivotColumnIndex + 1].firstElementChild.style.backgroundColor = "#ffffff";
@@ -153,7 +140,6 @@ function defineAndHighlightPivotElement() {
  * after every iteration (or whole optimization) we must set the values of the
  * js matrix array to the html table
  *
- * @returns
  */
 function copyMatrixToTable() {
 
@@ -171,6 +157,12 @@ function copyMatrixToTable() {
 
 }
 
+/**
+ * Shows a message to the user
+ * with the param text as message
+ *
+ * @param text
+ */
 function showAlertMessage(text) {
   var alertanchor = document.getElementById("alertanchor");
   var message = document.createElement("p");
@@ -214,5 +206,26 @@ function setDefaultExampleToTable() {
   rows[3].childNodes[4].firstElementChild.value = 0;
   rows[3].childNodes[5].firstElementChild.value = 0;
 
+  // TODO: necessary?
   getValuesFromTableToMatrix();
+}
+
+/**
+ * checks the validity of the matrix (with the native html5 form validation
+ *
+ * @return {boolean}
+ */
+function checkIfMatrixIsValid() {
+
+  var form = document.getElementById("matrixForm");
+  if (!form.checkValidity()) {
+    showAlertMessage("Ungültige Werte in Matrix!");
+    // triggers the native html5 form validation
+    var submitButton = document.getElementById("submitButton");
+    submitButton.click();
+    return false;
+  } else {
+    // the form is valid
+    return true;
+  }
 }

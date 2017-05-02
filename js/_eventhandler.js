@@ -95,39 +95,6 @@ var EventHandler = (function () {
   }
 
   /**
-   *
-   * proofs which character the user typed in
-   *
-   * @param e
-   * @returns
-   */
-  function printPressedKey(e) {
-
-    var keynum;
-    if (window.event) { // IE
-      keynum = e.keyCode;
-    } else if (e.which) { // Netscape/Firefox/Opera
-      keynum = e.which;
-    }
-
-    var char = String.fromCharCode(keynum);
-    var regex = new RegExp("[0-9\.,\/\-]");
-    if (regex.test(char)) {
-      // the character is allowed
-
-    } else {
-      // the character is not allowed, delete it
-      console.log(char);
-      e.target.value = e.target.value.split(char).join('');
-    }
-
-    // triggers the native html5 form validation
-    var submitButton = document.getElementById("submitButton");
-    submitButton.click();
-  }
-
-
-  /**
    * checks the user input live against the pattern for a rational number so the
    * user can just type following number types: > integer, e.g. "1" > float, e.g.
    * "3/4" > mixed float, e.g. "3,2/4" or "3/4,2" > input with both comma and dot
@@ -163,7 +130,9 @@ var EventHandler = (function () {
 //		event.target.value = correctedValue;
 //	}
 
-    var form = document.getElementById("matriForm");
+    // triggers the native html5 form validation
+    var submitButton = document.getElementById("submitButton");
+    submitButton.click();
   }
 
   /**
@@ -245,8 +214,7 @@ var EventHandler = (function () {
 
   return {
     initEventHandler: initEventHandler,
-    checkUserNumberInput: checkUserNumberInput,
-    printPressedKey: printPressedKey
+    checkUserNumberInput: checkUserNumberInput
   };
 
 })();

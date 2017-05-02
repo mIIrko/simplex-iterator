@@ -249,7 +249,6 @@ var TableManipulator = (function () {
 
     var element = document.createElement("input");
     element.addEventListener("keyup", EventHandler.checkUserNumberInput);
-    element.addEventListener("keypress", EventHandler.printPressedKey);
     element.addEventListener("dblclick", Iterator.iterateOnClick);
 
     // link to visualize the pattern
@@ -257,6 +256,7 @@ var TableManipulator = (function () {
 
     element.pattern = "^[-]?[0-9]+((\.|,)[0-9]+)?((\/-?0(\.|,)([1-9]+[0-9]*|[0-9]+[1-9]))|(\/-?[1-9]+((\.|,)[0-9]+)?))?$";
     element.title = "Geben Sie eine Ganzzahl oder eine gültige rationale Zahl ein.";
+    element.placeholder = "insert number";
     element.addEventListener("click", function () {
       this.select();
     });

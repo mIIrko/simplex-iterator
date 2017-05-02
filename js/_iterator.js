@@ -104,6 +104,10 @@ var Iterator = (function () {
    */
   function iterate(customPivotRowIndex, customPivotColumnIndex) {
 
+    if (!checkIfMatrixIsValid()) {
+      return;
+    }
+
     getValuesFromTableToMatrix();
     var pivotElement;
 
@@ -168,6 +172,11 @@ var Iterator = (function () {
    * @param e : Event
    */
   function iterateOnClick(e) {
+
+    if (!checkIfMatrixIsValid()) {
+      return;
+    }
+
     var row = e.target.parentNode.parentNode;
     // id = constraint_2 means row 1 in matrix
     var rowIndex = row.id.replace(/constraint_/, "") - 1;
