@@ -1,19 +1,78 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* #################################################### */
+
 body {
   background-size: 40px 40px;
   background-image: radial-gradient(circle, #000000 1px, rgba(0, 0, 0, 0) 1px);
 }
 
+/* the space for the heading */
 header {
-  height: 20%;
+  height: 25%;
 }
 
+/* the heading at the page top*/
 header h1 {
   color: #334152;
   font-family: 'Roboto Mono', monospace;
   font-size: 3em;
   text-align: center;
   margin: 0;
-  padding: 0.5em;
+  padding: 1em;
   background-color: white;
 }
 
@@ -23,6 +82,15 @@ header h1 {
   margin: 0;
 }
 
+/* disabling the border when clicking on buttons */
+#controls .button-row button:focus,
+#inputelements button:focus {
+  outline-style: none;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+/* here lives the buttons and the matrix */
 #content {
   height: 80%;
   width: 100%;
@@ -35,6 +103,7 @@ header h1 {
   text-align: center;
 }
 
+/* the first row with the inputs for variables and constraints */
 #inputelements {
   width: 75%;
   padding-top: 2em;
@@ -58,6 +127,10 @@ header h1 {
   font-family: 'Roboto Mono', monospace;
 }
 
+#inputelements button {
+  font-family: 'Roboto Mono', monospace;
+}
+
 .button-row {
   width: 75%;
   padding-top: 2em;
@@ -74,27 +147,6 @@ header h1 {
   margin-right: 0.5em;
 }
 
-#table {
-  padding: 2em;
-  margin: 3em 5em;
-  background-color: #d9e6ec;
-  border-radius: 0.7em;
-  overflow-x: auto; /* for the responsive table*/
-  min-height: 10em;
-  font-family: 'Roboto Mono', monospace;
-
-}
-
-#circle {
-  position: absolute;
-  right: 0em;
-  bottom: 0em;
-}
-
-#circle svg {
-  fill: #049d93;
-}
-
 button {
   background-color: #334152;
   color: white;
@@ -104,7 +156,32 @@ button {
   cursor: pointer;
 }
 
+#table {
+  padding: 2em;
+  margin: 3em 5em;
+  background-color: #d9e6ec;
+  border-radius: 0.7em;
+  overflow-x: auto; /* for the responsive table*/
+  min-height: 10em;
+  font-family: 'Roboto Mono', monospace;
+}
+
+#circle {
+  position: absolute;
+  z-index: -1;
+  right: 0em;
+  bottom: 0em;
+}
+
+#circle svg {
+  fill: #049d93;
+}
+
 /* TABLE */
+
+#table tbody tr:nth-child(even) input {
+  /*background-color: aqua;*/
+}
 
 #table table tr td:first-child {
   width: 10em;
@@ -122,7 +199,14 @@ button {
   margin-right: auto;
 }
 
-/* ALERT POP UP */
+/* the style for the subscript in the table header */
+sub {
+  vertical-align: sub;
+  font-size: smaller;
+}
+
+/* ALERT POP UP AT THE BOTTOM */
+
 #alertanchor {
   position: absolute;
   bottom: 5em;
@@ -154,19 +238,113 @@ button {
   }
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
 /* STYLE FOR DISABLED ELEMENTS */
 :disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
+/* DROPDOWN FOR SAVE MATRIX */
+
+#saveMatrix {
+  cursor: default;
+}
+
+/* The container <div> - needed to position the dropdown content */
+#saveMatrixDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+#saveMatrixDropdownContent {
+  display: none;
+  position: absolute;
+  background-color: rgba(217, 230, 236, 0.95);
+  width: 9.2em;
+  margin-left: 0.6em;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  border-bottom-left-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+  font-family: 'Roboto Mono', monospace;
+}
+
+/* Links inside the dropdown */
+#saveMatrixDropdown .saveMatrixSlot {
+  font-size: 0.9em;
+  color: black;
+  padding: 1em;
+  text-decoration: none;
+  display: block;
+  border-bottom-left-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+}
+
+/* Change color of dropdown links on hover */
+.saveMatrixSlot:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Show the dropdown menu on hover */
+#saveMatrixDropdown:hover #saveMatrixDropdownContent {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+/* THE MODEL AT STARTUP WITH DESCRIPTION */
+
+/* The Modal (background) */
+#descriptionModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+#descriptionModalContent {
+  background-color: #fefefe;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  max-width: 40em;
+  margin-top: 7em;
+  height: 35em;
+  padding: 1em;
+  font-family: 'Roboto Mono', monospace;
+}
+
+/* The Close Button */
+#closeDescriptionModalContent {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#closeDescriptionModalContent:hover,
+#closeDescriptionModalContent:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#modalBody {
+  height: 91%;
+}
+
+#modalFooter p {
+  padding: 0.5em 1em;
+}

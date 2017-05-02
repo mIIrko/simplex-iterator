@@ -47,7 +47,7 @@ var EventHandler = (function () {
           }
         }
       }
-
+      updateLabelBasisSolutions();
     }, 500);
 
   }
@@ -136,6 +136,33 @@ var EventHandler = (function () {
   }
 
   /**
+   * helper function to calculate the factorial of a number;
+   * needed for the amount of basis solutions
+   *
+   * @param n
+   * @return {number}
+   */
+  function factorial(n) {
+    return (n > 1 ? n * factorial(n - 1) : 1);
+  }
+
+  /**
+   * updates the label of the "show all basis solutions" button;
+   * its simply calculate the binomial coefficient:
+   *
+   * <numbOfVariables> choose 2
+   * OR
+   * <numbOfVariables>! / 2! * (<numbOfVariables> - 2)!
+   *
+   */
+  function updateLabelBasisSolutions() {
+    var element = document.getElementById("showAllBasisSolutions");
+    var numberOfBasisSolutions = factorial(numbOfVariables) / (factorial(2) * factorial(numbOfVariables - 2));
+    element.innerHTML = "alle " + numberOfBasisSolutions + " Basislösungen anzeigen";
+  }
+
+
+  /**
    *
    * @returns
    */
@@ -160,16 +187,18 @@ var EventHandler = (function () {
           numbOfVariables++;
           document.getElementById("numbOfVariables").value = numbOfVariables;
           TableManipulator.addVariable();
+          updateLabelBasisSolutions();
         });
     document
       .getElementById("decrementNumberOfVariables")
       .addEventListener(
         "click",
         function () {
-          if (numbOfVariables > 4) {
+          if (numbOfVariables > 2) {
             numbOfVariables--;
             document.getElementById("numbOfVariables").value = numbOfVariables;
             TableManipulator.removeVariable();
+            updateLabelBasisSolutions();
           }
         });
 
@@ -210,11 +239,19 @@ var EventHandler = (function () {
     // add the event listener for the iterate button
     document.getElementById("iterate").addEventListener("click", Iterator.iterate);
 
+    // add the event listener for the optimize button
+    document.getElementById("optimize").addEventListener("click", Iterator.optimize);
+
+    //
+    document.getElementById("saveMatrixSlot_1").addEventListener("click", saveAndRestoreMatrix);
+    document.getElementById("saveMatrixSlot_2").addEventListener("click", saveAndRestoreMatrix);
+
   }
 
   return {
     initEventHandler: initEventHandler,
-    checkUserNumberInput: checkUserNumberInput
+    checkUserNumberInput: checkUserNumberInput,
+    updateLabelBasisSolutions: updateLabelBasisSolutions
   };
 
 })();

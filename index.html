@@ -32,8 +32,12 @@
       </label>
       <input id="numbOfVariables" name="numbOfVariables" type="number" min="4" placeholder="Number of variables"
              value="4" onclick="this.select()"/>
-      <button id="incrementNumberOfVariables" data-balloon="Erhöhe die Anzahl der Variablen in der Matrix" data-balloon-pos="up">↑</button>
-      <button id="decrementNumberOfVariables" data-balloon="Verringer die Anzahl der Variablen in der Matrix" data-balloon-pos="up">↓</button>
+      <button id="incrementNumberOfVariables" data-balloon="Erhöhe die Anzahl der Variablen in der Matrix"
+              data-balloon-pos="up">↑
+      </button>
+      <button id="decrementNumberOfVariables" data-balloon="Verringert die Anzahl der Variablen in der Matrix"
+              data-balloon-pos="up">↓
+      </button>
 
       <label for="numbOfConstraints"
              th:text="#{powerlp.numberOfConstraints}">Anzahl der Restriktionen</label>
@@ -44,15 +48,32 @@
     </div>
     <div class="button-row">
       <button id="loadExample" th:text="#{iterator.loadExampleButton}">Standard Beispiel laden</button>
-      <button id="saveMatrix" th:text="#{iterator.pivotizeButton}" disabled>Matrix speichern</button>
-      <button id="showAllBasisSolutions" th:text="#{iterator.pivotizeButton}" disabled>alle Basislösungen anzeigen</button>
+
+      <span id="saveMatrixDropdown">
+          <button id="saveMatrix" th:text="#{iterator.pivotizeButton}">Matrix speichern</button>
+          <div id="saveMatrixDropdownContent">
+            <div id="saveMatrixSlot_1" class="saveMatrixSlot">Slot 1 sichern</div>
+            <div id="saveMatrixSlot_2" class="saveMatrixSlot">Slot 2 sichern</div>
+          </div>
+      </span>
+
+      <button id="showAllBasisSolutions" th:text="#{iterator.pivotizeButton}" disabled>alle 6 Basislösungen anzeigen
+      </button>
     </div>
 
     <div class="button-row">
-      <button id="pivotize" th:text="#{iterator.pivotizeButton}" data-balloon="Bestimmen des Pivot-Elements" data-balloon-pos="left" >Pivot</button>
-      <button id="optimize" th:text="#{iterator.optimizeButton}" data-balloon="Optimale Matrix berechnen (mehrmaliges iterieren)" data-balloon-pos="down" disabled>optimieren</button>
-      <button id="iterate" th:text="#{iterator.iterateButton}" data-balloon="Pivot-Element in die Basis bringen" data-balloon-pos="down">iterieren</button>
-      <button id="reset" th:text="#{powerlp.resetButton}" data-balloon="Matrix zurücksetzen" data-balloon-pos="down">reset</button>
+      <button id="pivotize" th:text="#{iterator.pivotizeButton}" data-balloon="Bestimmen des Pivot-Elements"
+              data-balloon-pos="down">Pivot
+      </button>
+      <button id="optimize" th:text="#{iterator.optimizeButton}"
+              data-balloon="Optimale Matrix berechnen (mehrmaliges iterieren)" data-balloon-pos="down">optimieren
+      </button>
+      <button id="iterate" th:text="#{iterator.iterateButton}" data-balloon="Pivot-Element in die Basis bringen"
+              data-balloon-pos="down">iterieren
+      </button>
+      <button id="reset" th:text="#{powerlp.resetButton}" data-balloon="Matrix zurücksetzen" data-balloon-pos="down">
+        reset
+      </button>
     </div>
 
   </section>
@@ -82,9 +103,26 @@
 <div id="circle">
   <svg height="300" width="300">
     <circle cx="200" cy="200" r="200">
-    <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">mirko bay</text>
+      <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">mirko bay</text>
     </circle>
   </svg>
+</div>
+
+<!-- The Modal -->
+<div id="descriptionModal">
+
+  <!-- Modal content -->
+  <div id="descriptionModalContent">
+    <span id="closeDescriptionModalContent">&times;</span>
+    <div id="modalBody">
+      <p>Some text in the Modal..</p>
+    </div>
+    <hr>
+    <div id="modalFooter">
+      <p>mirko bay, 2017</p>
+    </div>
+  </div>
+
 </div>
 
 
@@ -97,9 +135,33 @@
   //var headerMatrixTargetFunction = [[#{powerlp.headerTableauTargetFunction}]] || "Zielfunktion";
   //var headerMatrixConstraintRow = [[#{powerlp.headerTableauConstraintRow}]] || "Restriktion";
 
+  window.onload = function () {
+    // Get the modal
+    var modal = document.getElementById('descriptionModal');
+    // Get the <span> element that closes the modal
+    var span = document.getElementById("closeDescriptionModalContent");
+
+    // show the modal
+    modal.style.display = "block";
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      console.log(event.target);
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+  };
+
   init();
 
   /*]]>*/
 </script>
 
-
+</body>
+</html><

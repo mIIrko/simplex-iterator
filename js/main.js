@@ -1,15 +1,10 @@
-// ###############################################################
-// #
-// #	SIMPLEX ITERATOR
-// #
-// #	Mirko Bay, 2017-04-26
-// #
-// ###############################################################
-
-
-/*
- * ###############################################################
- */
+// ##########################################################
+// #                                                        #
+// #	SIMPLEX ITERATOR                                      #
+// #                                                        #
+// #	Mirko Bay, 2017-04-26                                 #
+// #                                                        #
+// ##########################################################
 
 // Array<Array> : holds the array with the fraction objects
 var matrix;
@@ -27,6 +22,10 @@ var matrixTable;
 var numbOfVariables;
 // number: the current amount of constraints (=rows)
 var numbOfConstraints;
+
+
+//
+var savedMatrix = [];
 
 
 /**
@@ -107,7 +106,7 @@ function defineAndHighlightPivotElement() {
   getValuesFromTableToMatrix();
 
   if (Iterator.checkOptimum()) {
-    showAlertMessage("Ist bereits Optimum!")
+    showAlertMessage("Ist bereits Optimum!");
     return;
   }
 
@@ -149,8 +148,6 @@ function copyMatrixToTable() {
 
   for (var i = 1; i < rows.length; i++) {
     for (var j = 1; j < rows[i].childNodes.length; j++) {
-      // reset the background element of the old pivot element
-      rows[i].childNodes[j].style.background = "white";
       rows[i].childNodes[j].firstElementChild.value = (matrix[i - 1][j - 1].toFraction(false));
     }
   }
@@ -229,3 +226,25 @@ function checkIfMatrixIsValid() {
     return true;
   }
 }
+
+function saveAndRestoreMatrix(event) {
+
+  // index is the index of the saved matrix in the array
+  var index = (event.target.id).split("saveMatrixSlot_")[1] - 1;
+  if (savedMatrix[index] === undefined) {
+    // save the matrix
+    getValuesFromTableToMatrix();
+    savedMatrix[index] = matrix;
+    //event.target.innerHTML = "Slot &#x" + (2460 + index) + " laden";
+    event.target.innerHTML = "Slot " + (index + 1) + " laden";
+  } else {
+    // restore the matrix
+    matrix = savedMatrix[index];
+    copyMatrixToTable();
+    event.target.innerHTML = "Slot " + (index + 1) + " sichern";
+    savedMatrix[index] = undefined;
+  }
+}
+
+
+

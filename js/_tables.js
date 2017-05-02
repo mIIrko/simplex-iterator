@@ -83,6 +83,10 @@ var TableManipulator = (function () {
       addConstraint(i + 1);
     }
 
+    // reset the save matrix button
+    savedMatrix = [];
+    // reset the "show all basis solutions" button
+    EventHandler.updateLabelBasisSolutions();
   }
 
   /**

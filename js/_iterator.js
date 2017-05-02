@@ -26,6 +26,8 @@ var Iterator = (function () {
    */
 
   /**
+   * calculate the pivot column and returns it.
+   *
    *
    * @returns:  number, the index of the pivot column or null, if non column can be defined
    */
@@ -144,14 +146,12 @@ var Iterator = (function () {
         continue;
       }
 
-      var valueOfElementInPivotColumn = new Fraction(
-        matrix[i][pivotColumnIndex]);
+      var valueOfElementInPivotColumn = new Fraction(matrix[i][pivotColumnIndex]);
 
       for (var j = 0; j < matrix[i].length; j++) {
 
         var minuend = matrix[i][j];
-        var subtrahend = matrix[pivotRowIndex][j]
-          .mul(valueOfElementInPivotColumn);
+        var subtrahend = matrix[pivotRowIndex][j].mul(valueOfElementInPivotColumn);
         matrix[i][j] = minuend.sub(subtrahend);
       }
     }
@@ -177,12 +177,15 @@ var Iterator = (function () {
       return;
     }
 
+    getValuesFromTableToMatrix();
+
     var row = e.target.parentNode.parentNode;
     // id = constraint_2 means row 1 in matrix
     var rowIndex = row.id.replace(/constraint_/, "") - 1;
 
     // if the casting does not work, the row must be the objective function
     if (isNaN(rowIndex)) {
+      showAlertMessage("Die Werte der Zielfunktion können nicht in die Basis gelangen!");
       return;
     }
 
@@ -195,7 +198,11 @@ var Iterator = (function () {
     var columnIndex = Array.prototype.indexOf.call(parent.children, targetParent) - 1;
 
     // cant iterate on the rhs and the objective function
-    if (rowIndex === numbOfConstraints || columnIndex === numbOfVariables) {
+    if (rowIndex === numbOfConstraints) {
+      showAlertMessage("Die Werte der Zielfunktion können nicht in die Basis gelangen!");
+      return;
+    } else if (columnIndex === numbOfVariables) {
+      showAlertMessage("Der B-Vektor kann nicht in die Basis gelangen!");
       return;
     }
 
@@ -225,20 +232,32 @@ var Iterator = (function () {
    */
   function optimize() {
 
+    var iteration = 0;
+
+    if (!checkIfMatrixIsValid()) {
+      return;
+    }
+
+    getValuesFromTableToMatrix();
+
+
     // proof initial the values
     var isOptimal = checkOptimum();
     while (!isOptimal) {
-      pivotColumnIndex = setPivotColumn();
-      pivotRowIndex = setPivotRow();
+      pivotColumnIndex = defineOptimalPivotColumn();
+      pivotRowIndex = defineOptimalPivotRow();
+      pivotElementIsSet = true;
 
       iterate(); // called without parameters, so we take the optimal pivot element
       isOptimal = checkOptimum();
-      console.log("finished iteration");
+      iteration++;
     }
+    showAlertMessage("Optimierung nach " + iteration + " Iterationen beendet!");
   }
 
   /**
-   * proofs if the matrix is optimum
+   * checks if the matrix is optimum and
+   * returns a boolean
    */
   function checkOptimum() {
 
