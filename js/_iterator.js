@@ -37,8 +37,12 @@ var Iterator = (function () {
     var minValue = new Fraction(Number.MAX_VALUE);
     var minIndex = 0;
     var pivotColumnFound = false;
+    var latexOutput = "\\text{Auswahl der Pivotspalte: }\\min\\{";
 
     for (var i = 0; i < objectiveRow.length - 1; i++) {
+
+      latexOutput += objectiveRow[i].toLatex(false);
+      latexOutput += ";";
 
       if (objectiveRow[i] < minValue) {
         minIndex = i;
@@ -46,8 +50,12 @@ var Iterator = (function () {
         pivotColumnFound = true;
       }
     }
+    latexOutput += "\\}";
 
     if (pivotColumnFound) {
+      latexOutput += " = " + minValue.toLatex(false);
+      var latexArea = document.getElementById("latexPivotColumn");
+      katex.render(latexOutput, latexArea);
       return minIndex;
     } else {
       return null;
@@ -63,6 +71,8 @@ var Iterator = (function () {
     var minIndex = 0;
     var minValue = new Fraction(Number.MAX_VALUE);
     var pivotRowFound = false;
+    var latexOutput = "\\text{Auswahl der Pivotzeile: }\\min\\{";
+
 
     for (var i = 0; i < matrix.length - 1; i++) {
       if (matrix[i][pivotColumnIndex] === 0) {
@@ -71,16 +81,23 @@ var Iterator = (function () {
       }
 
       // TODO: divison by negative numbers possible?
-
+      latexOutput += "\\frac{" + matrix[i][matrix[0].length - 1].toLatex(false) + "}{" + matrix[i][pivotColumnIndex].toLatex(false) + "}";
+      latexOutput += ";";
       var tmp = matrix[i][matrix[0].length - 1].div(matrix[i][pivotColumnIndex]);
       if (tmp < minValue) {
+
         minValue = tmp;
         minIndex = i;
         pivotRowFound = true;
       }
     }
 
+    latexOutput += "\\}";
+
     if (pivotRowFound) {
+      latexOutput += " = " + minValue.toLatex(false);
+      var latexArea = document.getElementById("latexPivotRow");
+      katex.render(latexOutput, latexArea);
       return minIndex;
     } else {
       return null;

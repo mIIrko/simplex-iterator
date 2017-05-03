@@ -10,7 +10,7 @@ The application is completely written in [VanillaJS](http://vanilla-js.com). Fol
 `npm install balloon-css`
 
 ### Bugs
-* pivot bestimmen (und evtl iterieren) muss immer möglich sein, egal ob Optimum bereits gefunden
+* highlighting des pivot elments resetten, wenn durch doppelklick iteriert wird
 * ~~Hinweis, wenn RHS oder ObjFunc iteriert werden soll~~
 * ~~Hinweis bei falschem Input schon bei 1 Zeichen~~
 * ~~Validierung der Input-Elemente vor jeder Operation (Form abschicken und auf Validität prüfen)~~

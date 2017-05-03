@@ -14,14 +14,14 @@ optimize();
 console.log(matrix);
 
 /**
- * 
- * 
+ *
+ *
  * @param matrix
  * @returns
  */
 function getPivotColumn(matrix) {
 
-	var targetRow = matrix[matrix.length - 1]
+	var targetRow = matrix[matrix.length - 1];
 	var minValue = targetRow[0];
 	var minIndex = 0;
 
@@ -37,8 +37,8 @@ function getPivotColumn(matrix) {
 }
 
 /**
- * 
- * 
+ *
+ *
  * @param matrix
  * @param pivotColumnIndex
  *            The index of the pivotColumn (starting with 0)
@@ -85,7 +85,7 @@ function iterate(matrix, pivotColumnIndex, pivotRowIndex) {
 			continue;
 		}
 
-		var valueOfElementInPivotColumn = matrix[i][pivotColumnIndex]
+		var valueOfElementInPivotColumn = matrix[i][pivotColumnIndex];
 
 		for (var j = 0; j < matrix[i].length; j++) {
 
